@@ -1,29 +1,33 @@
-# ASSIGN A VALUE TO COMPUTER
-computer_choice = ["rock", "paper", "scissors"].sample
+possible_options = %w[rock paper scissors]
+player_choice = nil
+player_score = 0
+computer_score = 0
+until player_choice == 'stop'
+  computer_choice = possible_options.sample
+  player_choice   = nil
+  until possible_options.include?(player_choice)
+    puts 'Choose rock, paper, or scissors (stop to quit):'
+    print '---->'
+    player_choice = gets.chomp
+  end
 
-# ASSIGN A VALUE TO PLAYER
-puts "Choose rock, paper, or scissors"
-player_choice = gets.chomp
+  computer_win_one   = (computer_choice == 'rock' && player_choice == 'scissors')
+  computer_win_two   = (computer_choice == 'paper' && player_choice == 'rock')
+  computer_win_three = (computer_choice == 'scissors' && player_choice == 'paper')
+  computer_wins      = (computer_win_one || computer_win_two || computer_win_three)
+  tie                = (computer_choice == player_choice)
+  player_wins        = !computer_wins && !tie
 
-unless (player_choice == "rock") || (player_choice == "paper") || (player_choice == "scissors")
-  puts "Choose rock, paper, or scissors"
-  player_choice = gets.chomp
+  who_wins = 'Computer wins' if computer_wins
+  who_wins = 'Tie' if tie
+  who_wins = 'Player wins' if player_wins
+
+  computer_score += 1 if computer_wins
+  player_score   += 1 if player_wins
+
+  puts "Computer: #{computer_choice} | Player: #{player_choice} | #{who_wins}"
+  puts "Computer score: #{computer_score} | Player score: #{player_score}"
 end
-
-
-# COMPARE VALUES
-if player_choice == computer_choice
-  puts "Computer: #{computer_choice} - Player: #{player_choice} - It's a tie!"
-elsif computer_choice == "rock" && player_choice == "scissors"
-  puts "Computer: #{computer_choice} - Player: #{player_choice} - Computer wins!"
-elsif computer_choice == "scissors" && player_choice == "paper"
-  puts "Computer: #{computer_choice} - Player: #{player_choice} - Computer wins!"
-elsif computer_choice == "paper" && player_choice == "rock"
-  puts "Computer: #{computer_choice} - Player: #{player_choice} - Computer wins!"
-else
-  puts "Computer: #{computer_choice} - Player: #{player_choice} - Player wins!"
-end
-
 
 # 1 CLARIFY
 # 2 PSEUDOCODE
